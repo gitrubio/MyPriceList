@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import androidx.appcompat.widget.Toolbar
 import com.example.mypricelist.R
 import com.example.mypricelist.models.ListModel
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import android.widget.Spinner
 
 class CreateListActivity : AppCompatActivity() {
     val db = FirebaseFirestore.getInstance()
@@ -25,6 +27,19 @@ class CreateListActivity : AppCompatActivity() {
 
         // Establece el manejador de eventos para el botón de retroceso
         toolbar.setNavigationOnClickListener { onBackPressed() }
+
+        val spinner: Spinner = findViewById(R.id.spiProducts)
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.planets_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spinner.adapter = adapter
+        }
 
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
