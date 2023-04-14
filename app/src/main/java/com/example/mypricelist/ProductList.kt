@@ -1,6 +1,6 @@
 package com.example.mypricelist
 
-class ProductList(private var _tituloNota: String = "", private var _textoNota: String = "") {
+class ProductList(private var _tituloNota: String = "", private var _cantProducts: String = "") {
 
     var tituloNota: String
         get() = _tituloNota
@@ -8,10 +8,10 @@ class ProductList(private var _tituloNota: String = "", private var _textoNota: 
             _tituloNota = value
         }
 
-    var textoNota: String
-        get() = _textoNota
+    var cantNota: String
+        get() = _cantProducts
         set(value) {
-            _textoNota = value
+            _cantProducts = value
         }
 
 }
