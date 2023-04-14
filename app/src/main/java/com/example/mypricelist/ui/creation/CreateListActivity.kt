@@ -4,18 +4,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import androidx.appcompat.widget.Toolbar
 import com.example.mypricelist.R
 import com.example.mypricelist.models.ListModel
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import android.widget.Spinner
+import androidx.core.view.get
 
 class CreateListActivity : AppCompatActivity() {
     val db = FirebaseFirestore.getInstance()
     val coleccion: CollectionReference = db.collection("ListMain")
-
+    val data = listOf("Papitas", "Coca Cola", "Cerveza","Chocolate","Wisky")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_list)
@@ -27,19 +30,10 @@ class CreateListActivity : AppCompatActivity() {
 
         // Establece el manejador de eventos para el botón de retroceso
         toolbar.setNavigationOnClickListener { onBackPressed() }
-
-        val spinner: Spinner = findViewById(R.id.spiProducts)
-// Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.planets_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            spinner.adapter = adapter
-        }
+        val spinner = findViewById<Spinner>(R.id.spiProducts)
+        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, data)
+        spinner.adapter = adapter
+        
 
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -56,9 +50,24 @@ class CreateListActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun saveList(){
-        var productos : List<String> = listOf("juan","carlos","lucho")
-        val producto = ListModel("carlos",12.3, productos)
+    fun saveList(view : View){
+        var controListName = findViewById<EditText>(R.id.edtListName)
+        var controlSelectProduct = findViewById<Spinner>(R.id.spiProducts)
+
+        controlErrors(controListName,controlSelectProduct)
+        var product = data[controlSelectProduct.selectedItemPosition]
+        var productos : List<String> = listOf(product)
+        val producto = ListModel(controListName.text.toString(),12.3, productos)
         coleccion.add(producto)
+    }
+
+    private fun controlErrors(listName : EditText, Productos : Spinner): Boolean {
+        var correctlyData : Boolean = true
+        var nameList = listName.text.toString()
+        if(nameList.isEmpty()){
+            listName.error = "Por favor Ingrese un nombre para la lista"
+            correctlyData = false
+        }
+        return correctlyData
     }
 }

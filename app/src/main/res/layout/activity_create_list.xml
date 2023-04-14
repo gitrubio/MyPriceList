@@ -20,23 +20,23 @@
         app:title="Crea una lista" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/edtListName"
         android:layout_width="374dp"
         android:layout_height="44dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="144dp"
         android:ems="10"
+        android:hint="@string/ListName"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <Spinner
         android:id="@+id/spiProducts"
-        android:layout_width="211dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="388dp"
+        android:layout_width="371dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="360dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -45,11 +45,14 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="256dp"
+        android:layout_marginBottom="204dp"
+        android:onClick="saveList"
         android:text="@string/addText"
         app:icon="@drawable/ic_add_circle_outline_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.424"
         app:layout_constraintStart_toStartOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
