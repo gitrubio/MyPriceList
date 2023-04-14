@@ -1,7 +1,6 @@
 package com.example.mypricelist.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mypricelist.ProductList
 import com.example.mypricelist.R
 import com.example.mypricelist.databinding.FragmentHomeBinding
-import com.example.mypricelist.models.ListModel
-import com.example.mypricelist.models.ProductListModel
+import com.example.mypricelist.ui.creation.CreateListActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.ktx.toObject
 
 class HomeFragment : Fragment() {
     val db = FirebaseFirestore.getInstance()
@@ -44,13 +41,14 @@ class HomeFragment : Fragment() {
         val addButton = root.findViewById<FloatingActionButton>(R.id.btnAddList)
 
         addButton.setOnClickListener {
-            saveList()
-            Toast.makeText(context, "Texto del Toast", Toast.LENGTH_SHORT).show()
+            val createListView = Intent(root.context,CreateListActivity::class.java)
+            startActivity(createListView)
         }
 
 
         return root
     }
+
 
     fun leerListadoList(){
         listadoList.clear()

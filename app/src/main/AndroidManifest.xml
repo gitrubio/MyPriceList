@@ -12,6 +12,10 @@
         android:theme="@style/Theme.MyPriceList"
         tools:targetApi="31">
         <activity
+            android:name=".ui.creation.CreateListActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CreateList"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">
