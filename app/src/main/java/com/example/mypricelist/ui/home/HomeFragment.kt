@@ -1,5 +1,6 @@
 package com.example.mypricelist.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -56,7 +57,6 @@ class HomeFragment : Fragment() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     for (document in task.result) {
-                        val listaList = document.toObject<ProductList>()
                         val nuevaList:ProductList = ProductList(""+document.getString("name"),"10")
                         listadoList.add(nuevaList)
                     }
@@ -64,12 +64,6 @@ class HomeFragment : Fragment() {
             }
     }
 
-
-    private fun saveList(){
-        var productos : List<String> = listOf("juan","carlos","lucho")
-        val producto = ListModel("carlos",12.3, productos)
-        coleccion.add(producto)
-    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
