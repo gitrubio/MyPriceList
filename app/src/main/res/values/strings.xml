@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">MyPriceList</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_dashboard">Products</string>
+    <string name="title_notifications">Settings</string>
     <string name="addText">Guardar</string>
-    <string name="ListName">Nombre de la lista</string>
+    <string name="ListName">Nombre de la lista:</string>
+    <string name="ExampleListName">Lista de compras</string>
+    <string name="SelectorProducts">Seleccione un producto:</string>
     <string-array name="planets_array">
         <item>Papitas</item>
         <item>Coca Cola</item>

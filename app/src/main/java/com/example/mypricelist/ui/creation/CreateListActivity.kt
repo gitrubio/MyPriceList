@@ -13,9 +13,11 @@ import com.example.mypricelist.models.ListModel
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mypricelist.AdaptadorProductList
 import com.example.mypricelist.Adapters.ProductAdapter
 import com.example.mypricelist.models.ProductModel
 import com.example.mypricelist.utils.SinEspaciadoItemDecoration
@@ -23,46 +25,44 @@ import com.example.mypricelist.utils.SinEspaciadoItemDecoration
 class CreateListActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val coleccion: CollectionReference = db.collection("ListMain")
-    private val data = listOf("Papitas", "Coca Cola", "Cerveza","Chocolate","Wisky")
+    private val dataProducts = listOf<ProductModel>(
+        ProductModel("Cerveza", "ML", 1, "Bebida"),
+        ProductModel("Papitas", "Gramos", 1, "Snack"),
+        ProductModel("Coca Cola", "ML", 1, "Bebida"),
+        ProductModel("Chocolate", "Gramos", 1, "Snack"),
+        ProductModel("Wisky", "ML", 1, "Bebida"))
+    private val listProducts = (mutableListOf<ProductModel>())
+    private var ListAdapter: ProductAdapter?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_list)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-
-        // Habilita el botón de retroceso en el Toolbar
+        // botón de retroceso en el Toolbar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Establece el manejador de eventos para el botón de retroceso
+        // evento para el botón de retroceso
         toolbar.setNavigationOnClickListener { onBackPressed() }
+
+        // se llenar el select de datos
         val spinner = findViewById<Spinner>(R.id.spiProducts)
+        val data = dataProducts.map { it.nombre }
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, data)
         spinner.adapter = adapter
 
-        // En tu actividad o fragmento
 
-        // Obtén una referencia al RecyclerView en tu diseño de vista
-            val recyclerView: RecyclerView = findViewById(R.id.ReView)
-        val listaObjetos = listOf(
-            ProductModel("Cerveza", "ML", 5, "Bebida"),
-            ProductModel("Papitas", "Gramos", 10, "Snack"),
-            ProductModel("Coca Cola", "ML", 3, "Bebida"),
-            ProductModel("Chocolate", "Gramos", 7, "Snack"),
-            ProductModel("Wisky", "ML", 2, "Bebida")
-        )
-        // Crea una instancia de tu adaptador, pasándole la lista de objetos como parámetro
-            val objetoAdapter = ProductAdapter(listaObjetos)
-        // Asigna el adaptador al RecyclerView
-            recyclerView.adapter = objetoAdapter
-        // Opcional: Configura el diseño de vista para el RecyclerView (por ejemplo, LinearLayoutManager, GridLayoutManager, etc.)
-            val layoutManager = LinearLayoutManager(this) // Puedes cambiar "this" con la referencia a tu actividad o fragmento
-            recyclerView.layoutManager = layoutManager
+        val recyclerView: RecyclerView = findViewById(R.id.ReView)
+        // instancia del adaptador
+        ListAdapter = ProductAdapter(listProducts)
+        recyclerView.adapter = ListAdapter
+        val layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
 
 
 
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-       menuInflater.inflate(R.menu.toolbar_nav_menu, menu) // Infla el menú en la Toolbar
+       menuInflater.inflate(R.menu.toolbar_nav_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -74,23 +74,41 @@ class CreateListActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
+    fun addProductList(view: View){
+        val controlSelectProduct = findViewById<Spinner>(R.id.spiProducts)
+        val product = dataProducts[controlSelectProduct.selectedItemPosition]
+        if (!listProducts.any { it.nombre == product.nombre }) {
+            listProducts.add(product)
+        }else{
+            for (item in listProducts) {
+                if (item.nombre == product.nombre ) {
+                    item.cantidad += 1
+                    break
+                }
+            }
+        }
+        ListAdapter?.notifyDataSetChanged()
+    }
     fun saveList(view : View){
         var controListName = findViewById<EditText>(R.id.edtListName)
-        var controlSelectProduct = findViewById<Spinner>(R.id.spiProducts)
 
-        controlErrors(controListName,controlSelectProduct)
-        var product = data[controlSelectProduct.selectedItemPosition]
-        var productos : List<String> = listOf(product)
-        val producto = ListModel(controListName.text.toString(),12.3, productos)
-        coleccion.add(producto)
+        var correctly = controlErrors(controListName)
+        if(correctly){
+            val producto = ListModel(controListName.text.toString(),120.0, listProducts)
+            coleccion.add(producto)
+            finish()
+        }
     }
 
-    private fun controlErrors(listName : EditText, Productos : Spinner): Boolean {
+    private fun controlErrors(listName : EditText, ): Boolean {
         var correctlyData = true
         var nameList = listName.text.toString()
         if(nameList.isEmpty()){
             listName.error = "Por favor Ingrese un nombre para la lista"
+            correctlyData = false
+        }
+        if(listProducts.isEmpty()){
+            Toast.makeText(this, "Debe tener minimo un producto en la lista", Toast.LENGTH_SHORT).show()
             correctlyData = false
         }
         return correctlyData
