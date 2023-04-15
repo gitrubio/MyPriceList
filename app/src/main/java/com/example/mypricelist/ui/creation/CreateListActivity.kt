@@ -18,11 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mypricelist.Adapters.ProductAdapter
 import com.example.mypricelist.models.ProductModel
+import com.example.mypricelist.utils.SinEspaciadoItemDecoration
 
 class CreateListActivity : AppCompatActivity() {
-    val db = FirebaseFirestore.getInstance()
-    val coleccion: CollectionReference = db.collection("ListMain")
-    val data = listOf("Papitas", "Coca Cola", "Cerveza","Chocolate","Wisky")
+    private val db = FirebaseFirestore.getInstance()
+    private val coleccion: CollectionReference = db.collection("ListMain")
+    private val data = listOf("Papitas", "Coca Cola", "Cerveza","Chocolate","Wisky")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_list)
@@ -35,7 +36,7 @@ class CreateListActivity : AppCompatActivity() {
         // Establece el manejador de eventos para el botón de retroceso
         toolbar.setNavigationOnClickListener { onBackPressed() }
         val spinner = findViewById<Spinner>(R.id.spiProducts)
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, data)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, data)
         spinner.adapter = adapter
 
         // En tu actividad o fragmento
@@ -43,18 +44,16 @@ class CreateListActivity : AppCompatActivity() {
         // Obtén una referencia al RecyclerView en tu diseño de vista
             val recyclerView: RecyclerView = findViewById(R.id.ReView)
         val listaObjetos = listOf(
-            ProductModel("Objeto 1", "Unidad 1", 5, "Tipo 1"),
-            ProductModel("Objeto 2", "Unidad 2", 10, "Tipo 2"),
-            ProductModel("Objeto 3", "Unidad 3", 3, "Tipo 1"),
-            ProductModel("Objeto 4", "Unidad 1", 7, "Tipo 2"),
-            ProductModel("Objeto 5", "Unidad 2", 2, "Tipo 1")
+            ProductModel("Cerveza", "ML", 5, "Bebida"),
+            ProductModel("Papitas", "Gramos", 10, "Snack"),
+            ProductModel("Coca Cola", "ML", 3, "Bebida"),
+            ProductModel("Chocolate", "Gramos", 7, "Snack"),
+            ProductModel("Wisky", "ML", 2, "Bebida")
         )
         // Crea una instancia de tu adaptador, pasándole la lista de objetos como parámetro
             val objetoAdapter = ProductAdapter(listaObjetos)
-
         // Asigna el adaptador al RecyclerView
             recyclerView.adapter = objetoAdapter
-
         // Opcional: Configura el diseño de vista para el RecyclerView (por ejemplo, LinearLayoutManager, GridLayoutManager, etc.)
             val layoutManager = LinearLayoutManager(this) // Puedes cambiar "this" con la referencia a tu actividad o fragmento
             recyclerView.layoutManager = layoutManager
@@ -88,7 +87,7 @@ class CreateListActivity : AppCompatActivity() {
     }
 
     private fun controlErrors(listName : EditText, Productos : Spinner): Boolean {
-        var correctlyData : Boolean = true
+        var correctlyData = true
         var nameList = listName.text.toString()
         if(nameList.isEmpty()){
             listName.error = "Por favor Ingrese un nombre para la lista"

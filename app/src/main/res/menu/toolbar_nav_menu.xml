@@ -4,5 +4,6 @@
         android:id="@android:id/home"
         android:icon="@drawable/ic_backspace_24"
         android:title=""
+        android:visible="false"
     />
 </menu>

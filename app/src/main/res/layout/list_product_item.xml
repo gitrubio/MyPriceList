@@ -1,35 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:maxHeight="60dp">
+
+    <LinearLayout
+        android:id="@+id/item_producto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="0dp"
+       >
 
         <TextView
             android:id="@+id/txtNombre"
-            android:layout_width="wrap_content"
+            android:layout_width="87dp"
             android:layout_height="wrap_content"
+            android:text="nombre"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/txtUnidad"
-            android:layout_width="wrap_content"
+            android:layout_width="85dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp" />
+            android:text="txtUnidad"
+            android:textSize="16sp"
+            android:textAlignment="center"/>
 
         <TextView
             android:id="@+id/txtCantidad"
-            android:layout_width="wrap_content"
+            android:layout_width="85dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp" />
+            android:text="txtCantidad"
+            android:textSize="16sp"
+            android:textAlignment="center"/>
 
         <TextView
             android:id="@+id/txtTipo"
-            android:layout_width="wrap_content"
+            android:layout_width="85dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp" />
+            android:text="txtTipo"
+            android:textSize="16sp"
+            android:textAlignment="center"/>
 
     </LinearLayout>
 

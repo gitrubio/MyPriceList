@@ -3,6 +3,7 @@ package com.example.mypricelist.Adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mypricelist.R
@@ -17,8 +18,6 @@ class ProductAdapter(val listaObjetos: List<ProductModel>) : RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: ObjetoViewHolder, position: Int) {
-        // Asignar los datos del modelo de datos a las vistas del ViewHolder
-
         val objeto = listaObjetos[position]
         holder.txtNombre.text = objeto.nombre
         holder.txtUnidad.text = objeto.unidad
