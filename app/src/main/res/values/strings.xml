@@ -3,7 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="addText">Agregar</string>
+    <string name="addText">Guardar</string>
     <string name="ListName">Nombre de la lista</string>
     <string-array name="planets_array">
         <item>Papitas</item>

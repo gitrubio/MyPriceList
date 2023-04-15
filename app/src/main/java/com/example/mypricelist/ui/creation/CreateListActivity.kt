@@ -14,6 +14,10 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import android.widget.Spinner
 import androidx.core.view.get
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.mypricelist.Adapters.ProductAdapter
+import com.example.mypricelist.models.ProductModel
 
 class CreateListActivity : AppCompatActivity() {
     val db = FirebaseFirestore.getInstance()
@@ -33,7 +37,29 @@ class CreateListActivity : AppCompatActivity() {
         val spinner = findViewById<Spinner>(R.id.spiProducts)
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, data)
         spinner.adapter = adapter
-        
+
+        // En tu actividad o fragmento
+
+        // Obtén una referencia al RecyclerView en tu diseño de vista
+            val recyclerView: RecyclerView = findViewById(R.id.ReView)
+        val listaObjetos = listOf(
+            ProductModel("Objeto 1", "Unidad 1", 5, "Tipo 1"),
+            ProductModel("Objeto 2", "Unidad 2", 10, "Tipo 2"),
+            ProductModel("Objeto 3", "Unidad 3", 3, "Tipo 1"),
+            ProductModel("Objeto 4", "Unidad 1", 7, "Tipo 2"),
+            ProductModel("Objeto 5", "Unidad 2", 2, "Tipo 1")
+        )
+        // Crea una instancia de tu adaptador, pasándole la lista de objetos como parámetro
+            val objetoAdapter = ProductAdapter(listaObjetos)
+
+        // Asigna el adaptador al RecyclerView
+            recyclerView.adapter = objetoAdapter
+
+        // Opcional: Configura el diseño de vista para el RecyclerView (por ejemplo, LinearLayoutManager, GridLayoutManager, etc.)
+            val layoutManager = LinearLayoutManager(this) // Puedes cambiar "this" con la referencia a tu actividad o fragmento
+            recyclerView.layoutManager = layoutManager
+
+
 
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

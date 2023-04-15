@@ -1,4 +1,4 @@
-package com.example.mypricelist.ui.home
+package com.example.mypricelist.ui.creation.home
 
 import android.content.Intent
 import android.os.Bundle

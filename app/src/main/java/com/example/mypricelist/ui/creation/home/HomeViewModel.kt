@@ -1,4 +1,4 @@
-package com.example.mypricelist.ui.home
+package com.example.mypricelist.ui.creation.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
