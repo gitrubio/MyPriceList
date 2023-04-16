@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:maxHeight="60dp"
     android:background="@drawable/radius_buttom"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="10dp"
+    android:elevation="8dp"
+    app:layout_constraintCircleRadius="20dp">
 
     <ImageView
         android:id="@+id/imageProduct"
