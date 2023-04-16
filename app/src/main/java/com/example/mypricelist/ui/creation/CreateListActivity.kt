@@ -61,6 +61,11 @@ class CreateListActivity : AppCompatActivity() {
 
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        overridePendingTransition(0, 0)
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
        menuInflater.inflate(R.menu.toolbar_nav_menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -68,8 +73,7 @@ class CreateListActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                onBackPressed()
-                return true
+                finishAfterTransition()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -96,7 +100,7 @@ class CreateListActivity : AppCompatActivity() {
         if(correctly){
             val producto = ListModel(controListName.text.toString(),120.0, listProducts)
             coleccion.add(producto)
-            finish()
+            finishAfterTransition()
         }
     }
 
