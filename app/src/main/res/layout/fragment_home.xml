@@ -9,10 +9,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerListas"
-        android:layout_width="327dp"
-        android:layout_height="437dp"
-        android:layout_marginTop="128dp"
+        android:layout_width="match_parent"
+        android:layout_height="472dp"
+        android:layout_marginTop="16dp"
+        android:paddingHorizontal="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,23 +22,12 @@
         android:id="@+id/btnAddList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="588dp"
+        android:layout_marginTop="556dp"
         android:layout_marginEnd="40dp"
         android:clickable="true"
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtListas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginBottom="24dp"
-        android:text="Tus listas"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerListas"
-        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF6D60</color>
     <color name="fondo">#FFFF</color>
+    <color name="gray">#B7B7B7</color>
+    <color name="rosa_claro">#FDF4F5</color>
 </resources>

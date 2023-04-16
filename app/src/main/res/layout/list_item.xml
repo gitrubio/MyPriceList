@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="100dp"
     android:layout_margin="5dp"
     android:background="@drawable/radius_buttom"
     >
@@ -26,10 +26,11 @@
         android:layout_height="20dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/radius_background_whit"
         android:textAlignment="center"
-        app:layout_constraintStart_toEndOf="@+id/txtTitulo"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/white"/>
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitulo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
