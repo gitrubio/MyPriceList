@@ -13,6 +13,8 @@
         <item name="android:statusBarColor">@color/primario</item>
         <item name="android:windowBackground">@color/rosa_claro</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowEnterAnimation">@drawable/slide_in_right</item>
+        <item name="android:windowExitAnimation">@drawable/slide_out_left</item>
     </style>
     <style name="Theme.CreateList" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
@@ -27,6 +29,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/primario</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowEnterAnimation">@drawable/slide_in_right</item>
+        <item name="android:windowExitAnimation">@drawable/slide_out_left</item>
     </style>
     <style name="MyFragmentStyle" parent="Theme.AppCompat.Light">
         <item name="android:background">@color/red</item>

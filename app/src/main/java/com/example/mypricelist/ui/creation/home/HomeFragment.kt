@@ -1,5 +1,6 @@
 package com.example.mypricelist.ui.creation.home
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -40,7 +41,8 @@ class HomeFragment : Fragment() {
         val addButton = root.findViewById<FloatingActionButton>(R.id.btnAddList)
         addButton.setOnClickListener {
             val createListView = Intent(root.context,CreateListActivity::class.java)
-            startActivity(createListView)
+            val options = ActivityOptions.makeCustomAnimation(root.context, R.drawable.slide_in_right, R.drawable.slide_out_left)
+            startActivity(createListView, options.toBundle())
         }
 
         adapter = AdaptadorProductList(listadoList)
