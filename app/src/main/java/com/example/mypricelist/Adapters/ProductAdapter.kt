@@ -22,8 +22,9 @@ class ProductAdapter(val listaObjetos: List<ProductModel>) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: ObjetoViewHolder, position: Int) {
         val objeto = listaObjetos[position]
         holder.txtNombre.text = objeto.nombre
-        //val uri = Uri.parse("res/drawable/french_fries.png")
-        //holder.imgProduct.setImageURI(uri)
+        if(objeto.imgID != 0){
+            holder.imgProduct.setImageResource(objeto.imgID)
+        }
         holder.txtCantidad.text = objeto.cantidad.toString()
     }
 

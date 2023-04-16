@@ -8,6 +8,15 @@
     <string name="ExampleListName">Lista de compras</string>
     <string name="SelectorProducts">Seleccione un producto:</string>
     <string name="ListTitle" >Lista de Productos:</string>
+    <string name="TitleConfigList">Configuracion de Listas</string>
+    <string name="TitleConfigProducts">Configuracion de Productos</string>
+    <string name="privacityParams">Listas Privadas:</string>
+    <string name="FechaText">Fecha</string>
+    <string name="PrioridadText">Prioridad</string>
+    <string name="orderParams">Ordenar Por:</string>
+    <string name="ProductVisibility">Ocultar Productos:</string>
+    <string name="PriceParams">Mostrar precio de los productos</string>
+    <string name="TypeParams">Tipo de producto obligatorio !!</string>
     <string-array name="planets_array">
         <item>Papitas</item>
         <item>Coca Cola</item>

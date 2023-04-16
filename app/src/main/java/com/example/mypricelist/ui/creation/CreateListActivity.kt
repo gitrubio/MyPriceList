@@ -26,11 +26,11 @@ class CreateListActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val coleccion: CollectionReference = db.collection("ListMain")
     private val dataProducts = listOf<ProductModel>(
-        ProductModel("Cerveza", "ML", 1, "Bebida"),
-        ProductModel("Papitas", "Gramos", 1, "Snack"),
-        ProductModel("Coca Cola", "ML", 1, "Bebida"),
-        ProductModel("Chocolate", "Gramos", 1, "Snack"),
-        ProductModel("Wisky", "ML", 1, "Bebida"))
+        ProductModel("Cerveza", "ML", 1, "Bebida",R.drawable.glass_mug_variant),
+        ProductModel("Papitas", "Gramos", 1, "Snack", R.drawable.chips),
+        ProductModel("Coca Cola", "ML", 1, "Bebida",R.drawable.bottle_soda_classic),
+        ProductModel("Chocolate", "Gramos", 1, "Snack",R.drawable.candy),
+        ProductModel("Wisky", "ML", 1, "Bebida",R.drawable.liquor))
     private val listProducts = (mutableListOf<ProductModel>())
     private var ListAdapter: ProductAdapter?=null
     override fun onCreate(savedInstanceState: Bundle?) {
