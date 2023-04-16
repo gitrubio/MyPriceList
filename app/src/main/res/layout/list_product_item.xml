@@ -4,50 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:maxHeight="60dp">
+    android:maxHeight="60dp"
+    android:background="@drawable/radius_buttom">
 
-    <LinearLayout
-        android:id="@+id/item_producto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+    <ImageView
+        android:id="@+id/imageProduct"
+        android:layout_width="93dp"
+        android:layout_height="56dp"
+        android:layout_weight="100"
+        android:visibility='visible'
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="0dp"
-        android:background="@drawable/style_border_text"
-       >
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/glass_mug_variant" />
 
-        <TextView
-            android:id="@+id/txtNombre"
-            android:layout_width="87dp"
-            android:layout_height="wrap_content"
-            android:text="nombre"
-            android:textSize="18sp" />
+    <TextView
+        android:id="@+id/txtNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="nombre"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageProduct"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txtUnidad"
-            android:layout_width="85dp"
-            android:layout_height="wrap_content"
-            android:text="txtUnidad"
-            android:textSize="16sp"
-            android:textAlignment="center"/>
-
-        <TextView
-            android:id="@+id/txtCantidad"
-            android:layout_width="85dp"
-            android:layout_height="wrap_content"
-            android:text="txtCantidad"
-            android:textSize="16sp"
-            android:textAlignment="center"/>
-
-        <TextView
-            android:id="@+id/txtTipo"
-            android:layout_width="85dp"
-            android:layout_height="wrap_content"
-            android:text="txtTipo"
-            android:textSize="16sp"
-            android:textAlignment="center"/>
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

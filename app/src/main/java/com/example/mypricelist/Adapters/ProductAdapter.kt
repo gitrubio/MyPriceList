@@ -3,6 +3,7 @@ package com.example.mypricelist.Adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -20,9 +21,10 @@ class ProductAdapter(val listaObjetos: List<ProductModel>) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: ObjetoViewHolder, position: Int) {
         val objeto = listaObjetos[position]
         holder.txtNombre.text = objeto.nombre
-        holder.txtUnidad.text = objeto.unidad
-        holder.txtCantidad.text = objeto.cantidad.toString()
-        holder.txtTipo.text = objeto.tipo
+        holder.imgProduct
+       // holder.txtUnidad.text = objeto.unidad
+       // holder.txtCantidad.text = objeto.cantidad.toString()
+       // holder.txtTipo.text = objeto.tipo
     }
 
     override fun getItemCount(): Int {
@@ -32,8 +34,9 @@ class ProductAdapter(val listaObjetos: List<ProductModel>) : RecyclerView.Adapte
 
     class ObjetoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtNombre: TextView = itemView.findViewById(R.id.txtNombre)
-        val txtUnidad: TextView = itemView.findViewById(R.id.txtUnidad)
-        val txtCantidad: TextView = itemView.findViewById(R.id.txtCantidad)
-        val txtTipo: TextView = itemView.findViewById(R.id.txtTipo)
+        val imgProduct : ImageView = itemView.findViewById(R.id.imageProduct)
+    // val txtUnidad: TextView = itemView.findViewById(R.id.txtUnidad)
+        //val txtCantidad: TextView = itemView.findViewById(R.id.txtCantidad)
+        //val txtTipo: TextView = itemView.findViewById(R.id.txtTipo)
     }
 }

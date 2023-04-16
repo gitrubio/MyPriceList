@@ -7,6 +7,7 @@
     <string name="ListName">Nombre de la lista:</string>
     <string name="ExampleListName">Lista de compras</string>
     <string name="SelectorProducts">Seleccione un producto:</string>
+    <string name="ListTitle" >Lista de Productos:</string>
     <string-array name="planets_array">
         <item>Papitas</item>
         <item>Coca Cola</item>
