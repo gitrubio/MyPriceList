@@ -15,9 +15,13 @@ import androidx.viewbinding.ViewBindings
 import com.example.mypricelist.AdaptadorProductList
 import com.example.mypricelist.ProductList
 import com.example.mypricelist.R
+import com.example.mypricelist.data.remote.api.FirebaseAdapter
 import com.example.mypricelist.databinding.FragmentHomeBinding
 import com.example.mypricelist.ui.creation.CreateListActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.CollectionReference
 
@@ -29,7 +33,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private var adapter:AdaptadorProductList?=null
     private var recycler: RecyclerView?=null
-
+    private val firebaseAdapter = FirebaseAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,17 +65,8 @@ class HomeFragment : Fragment() {
         leerListadoList()
     }
     fun leerListadoList(){
-        listadoList.clear()
-        coleccion.get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    for (document in task.result) {
-                        val nuevaList:ProductList = ProductList(""+document.getString("name"),"10")
-                        listadoList.add(nuevaList)
-                    }
-                    adapter?.notifyDataSetChanged()
-                }
-            }
+//           firebaseAdapter.getLists(listadoList, adapter)
+           firebaseAdapter.listeningList(listadoList, adapter)
     }
 
     override fun onDestroyView() {
