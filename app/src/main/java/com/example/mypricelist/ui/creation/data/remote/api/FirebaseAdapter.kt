@@ -7,6 +7,8 @@ import com.example.mypricelist.models.ProductModel
 import com.google.firebase.database.*
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.ObjectMapper
 
 class FirebaseAdapter {
 
@@ -35,12 +37,12 @@ class FirebaseAdapter {
         }
         if (snapshot != null && !snapshot.isEmpty()) {
             listadoList.clear()
-            println("+++++++++++++++++++++++++++++")
-            println("Current data: ${snapshot.documents}")
+
             for (document in snapshot.documents) {
-                println("document " + document.get("productos"))
-                val productos : ArrayList<ProductModel> = document.get("productos") as ArrayList<ProductModel>
-                val nuevaList: ProductList = ProductList("" + document.getString("id"),""+document.getString("name"),productos.size.toString())
+                val productosDoc = document.get("productos") as? ArrayList<*>
+                val productos = transformData(productosDoc)
+                val cantidadProductos = productos.sumOf { it.cantidad }
+                val nuevaList: ProductList = ProductList("" + document.getString("id"),""+document.getString("name"),cantidadProductos.toString())
                 listadoList.add(nuevaList)
             }
             adapter?.notifyDataSetChanged()
@@ -50,6 +52,23 @@ class FirebaseAdapter {
     }
     }
 
+    fun transformData( productos : ArrayList<*>?) : ArrayList<ProductModel>  {
+        val productList =  ArrayList<ProductModel>()
+        if (productos != null) {
+            for (producto in productos) {
+                if (producto is HashMap<*, * >) {
+                    productList.add(ProductModel(
+                        cantidad =  producto["cantidad"].toString().toInt(),
+                        nombre = producto["nombre"].toString(),
+                        unidad = producto["unidad"].toString(),
+                        tipo = producto["tipo"].toString(),
+                        imgID = producto["imgID"].toString().toInt()
+                    ))
+                }
+            }
+        }
+        return productList
+    }
     fun listeningProducts(products: ArrayList<ProductModel>, adapter: ProductAdapter?) {
         val colecctionRef = db.collection("productos")
         colecctionRef.addSnapshotListener { snapshot, e ->
@@ -58,8 +77,7 @@ class FirebaseAdapter {
             }
             if (snapshot != null && !snapshot.isEmpty()) {
                 products.clear()
-                println("+++++++++++++++++++++++++++++")
-                println("Current data: ${snapshot.documents}")
+
                 for (document in snapshot.documents) {
                     val newProduct: ProductModel = ProductModel(""+document.getString("nombre"),""+document.getString("unidad"),1, "" + document.getString("tipo"), 2131230851, "" + document.getString("id"))
                     products.add(newProduct)
@@ -70,6 +88,4 @@ class FirebaseAdapter {
             }
         }
     }
-
-
 }
