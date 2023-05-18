@@ -1,4 +1,4 @@
-package com.example.mypricelist.data.remote.api
+package com.example.mypricelist.ui.creation.data.remote.api
 import com.example.mypricelist.AdaptadorProductList
 import com.example.mypricelist.ProductList
 import com.example.mypricelist.models.ProductModel

@@ -15,7 +15,7 @@ import androidx.viewbinding.ViewBindings
 import com.example.mypricelist.AdaptadorProductList
 import com.example.mypricelist.ProductList
 import com.example.mypricelist.R
-import com.example.mypricelist.data.remote.api.FirebaseAdapter
+import com.example.mypricelist.ui.creation.data.remote.api.FirebaseAdapter
 import com.example.mypricelist.databinding.FragmentHomeBinding
 import com.example.mypricelist.ui.creation.CreateListActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton

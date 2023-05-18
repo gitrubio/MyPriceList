@@ -16,6 +16,10 @@
             android:exported="false"
             android:theme="@style/Theme.CreateList"/>
         <activity
+            android:name=".ui.creation.CreateProducts"
+            android:exported="false"
+            android:theme="@style/Theme.CreateList"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">

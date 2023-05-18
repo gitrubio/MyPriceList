@@ -31,6 +31,7 @@ class CreateListActivity : AppCompatActivity() {
         ProductModel("Coca Cola", "ML", 1, "Bebida",R.drawable.bottle_soda_classic),
         ProductModel("Chocolate", "Gramos", 1, "Snack",R.drawable.candy),
         ProductModel("Wisky", "ML", 1, "Bebida",R.drawable.liquor))
+
     private val listProducts = (mutableListOf<ProductModel>())
     private var ListAdapter: ProductAdapter?=null
     override fun onCreate(savedInstanceState: Bundle?) {
