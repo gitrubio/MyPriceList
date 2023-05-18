@@ -1,5 +1,7 @@
 package com.example.mypricelist.ui.creation.data.remote.api
 import com.example.mypricelist.AdaptadorProductList
+import com.example.mypricelist.Adapters.ProductAdapter
+import com.example.mypricelist.Product
 import com.example.mypricelist.ProductList
 import com.example.mypricelist.models.ProductModel
 import com.google.firebase.database.*
@@ -46,6 +48,28 @@ class FirebaseAdapter {
             listadoList.clear()
         }
     }
+    }
+
+    fun listeningProducts(products: ArrayList<Product>, adapter: ProductAdapter?) {
+        val colecctionRef = db.collection("productos")
+        colecctionRef.addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                return@addSnapshotListener
+            }
+            if (snapshot != null && !snapshot.isEmpty()) {
+                products.clear()
+                println("+++++++++++++++++++++++++++++")
+                println("Current data: ${snapshot.documents}")
+                for (document in snapshot.documents) {
+                    println("document " + document.get("productos"))
+                    val newProduct: Product = Product("" + document.getString("id"),""+document.getString("nombre"),""+document.getString("tipo"),""+document.getString("unidad"))
+                    products.add(newProduct)
+                }
+                adapter?.notifyDataSetChanged()
+            } else {
+                products.clear()
+            }
+        }
     }
 
 
