@@ -17,6 +17,7 @@ import com.example.mypricelist.R
 import com.example.mypricelist.models.ListModel
 import com.example.mypricelist.models.ProductModel
 import com.example.mypricelist.models.TypeProductModel
+import com.example.mypricelist.models.UnitProductModel
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -29,9 +30,12 @@ class CreateProducts : AppCompatActivity() {
         TypeProductModel("Licor"),
         TypeProductModel("Dermocosmeticos"),
     )
-    private val listProducts = (mutableListOf<ProductModel>())
-    private var ListAdapter: ProductAdapter?=null
-
+    private val listUnidades = listOf<UnitProductModel>(
+        UnitProductModel("Gramos", "gr"),
+        UnitProductModel("Mililitros","ml"),
+        UnitProductModel("Unidad","u"),
+        UnitProductModel("Litro","l"),
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_products)
@@ -43,12 +47,18 @@ class CreateProducts : AppCompatActivity() {
         // evento para el botón de retroceso
         toolbar.setNavigationOnClickListener { onBackPressed() }
 
-        // se llenar el select de datos
+        // se llena el select de tipos de productos
         val spinner = findViewById<Spinner>(R.id.spiProducts)
         val data = listTypeProduct.map { it.nombre }
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, data)
         spinner.adapter = adapter
 
+
+        // se llena el select de unidades
+        val spinnerUnits = findViewById<Spinner>(R.id.spiUnits)
+        val dataUnits = listUnidades.map { it.name }
+        val adapterUnits = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, dataUnits)
+        spinnerUnits.adapter = adapterUnits
     }
 
     override fun onDestroy() {
@@ -69,12 +79,13 @@ class CreateProducts : AppCompatActivity() {
     }
     fun saveList(view : View){
         var productName = findViewById<EditText>(R.id.edtListName)
-
         var correctly = controlErrors(productName)
         if(correctly){
             val controlSelectProduct = findViewById<Spinner>(R.id.spiProducts)
+            val controlSelectUnits = findViewById<Spinner>(R.id.spiUnits)
             val selectType = listTypeProduct[controlSelectProduct.selectedItemPosition]
-            val producto = ProductModel(productName.text.toString(),"gramos", 1,selectType.nombre, R.drawable.candy)
+            val selectUnit = listUnidades[controlSelectUnits.selectedItemPosition]
+            val producto = ProductModel(productName.text.toString(),selectUnit.name, 1,selectType.nombre, R.drawable.candy)
             coleccion.add(producto)
             finishAfterTransition()
         }
@@ -84,7 +95,7 @@ class CreateProducts : AppCompatActivity() {
         var correctlyData = true
         var nameList = listName.text.toString()
         if(nameList.isEmpty()){
-            listName.error = "Por favor Ingrese un nombre para la lista"
+            listName.error = "Por favor Ingrese un nombre para el producto"
             correctlyData = false
         }
 

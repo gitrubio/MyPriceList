@@ -21,11 +21,22 @@
         app:titleTextColor="@color/white" />
 
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="16dp"
+        android:text="Nombre del producto"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/edtListName"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <EditText
         android:id="@+id/edtListName"
-        android:layout_width="369dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="164dp"
+        android:layout_width="355dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="160dp"
         android:background="@drawable/style_border_text"
         android:ems="10"
         android:hint="Ej: Cafe"
@@ -34,65 +45,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/spiProducts"
-        android:layout_width="270dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="31dp"
-        android:background="@drawable/style_border_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.19"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtListName" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="145dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="8dp"
-        android:onClick="saveList"
-        android:text="@string/addText"
-        app:icon="@drawable/ic_save_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.421"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spiProducts" />
-
-    <Button
-        android:id="@+id/btnAdd"
-        android:layout_width="46dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="44dp"
-        android:background="@drawable/radius_buttom"
-        android:onClick="addProductList"
-        android:text=""
-        app:icon="@drawable/ic_add_circle_outline_24"
-        app:iconGravity="textTop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.351"
-        app:layout_constraintStart_toEndOf="@+id/spiProducts"
-        app:layout_constraintTop_toBottomOf="@+id/edtListName"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="MissingConstraints" />
-
-
-
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="16dp"
-        android:text="Nombre del producto"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/edtListName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/text_unidad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -104,8 +58,51 @@
         app:layout_constraintTop_toBottomOf="@+id/edtListName"
         app:layout_constraintVertical_bias="1.0" />
 
+    <Spinner
+        android:id="@+id/spiProducts"
+        android:layout_width="355dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/style_border_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.517"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtListName" />
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:text="Unidad"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spiProducts" />
 
+    <Spinner
+        android:id="@+id/spiUnits"
+        android:layout_width="355dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/style_border_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.517"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spiProducts" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="145dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="48dp"
+        android:onClick="saveList"
+        android:text="@string/addText"
+        app:icon="@drawable/ic_save_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spiUnits" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
