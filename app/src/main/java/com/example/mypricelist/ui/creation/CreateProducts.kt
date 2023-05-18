@@ -29,6 +29,11 @@ class CreateProducts : AppCompatActivity() {
         TypeProductModel("Snaks"),
         TypeProductModel("Licor"),
         TypeProductModel("Dermocosmeticos"),
+        TypeProductModel("Cuidado personal"),
+        TypeProductModel("Aseo"),
+        TypeProductModel("Granos"),
+        TypeProductModel("Aceites"),
+        TypeProductModel("Enlatados"),
     )
     private val listUnidades = listOf<UnitProductModel>(
         UnitProductModel("Gramos", "gr"),

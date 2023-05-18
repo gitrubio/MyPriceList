@@ -44,7 +44,9 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
         val addButton = root.findViewById<FloatingActionButton>(R.id.btnAddList)
+
         addButton.setOnClickListener {
             val createListView = Intent(root.context,CreateListActivity::class.java)
             val options = ActivityOptions.makeCustomAnimation(root.context, R.drawable.slide_in_right, R.drawable.slide_out_left)
