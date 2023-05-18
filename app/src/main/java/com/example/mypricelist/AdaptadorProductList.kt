@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mypricelist.databinding.FragmentHomeBinding
 
@@ -19,14 +20,30 @@ class AdaptadorProductList(private val listProductList: ArrayList<ProductList>) 
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val producListActual: ProductList = listProductList.get(position)
-        holder.titulo.setText(producListActual.tituloNota)
-        holder.cantProduct.setText(producListActual.cantNota)
+        val productList: ProductList = listProductList[position]
+        holder.bind(productList)
     }
 
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titulo: TextView = itemView.findViewById(R.id.txtTitulo)
-        val cantProduct: TextView = itemView.findViewById(R.id.txtCantProducts)
+    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        private val titulo: TextView = itemView.findViewById(R.id.txtTitulo)
+        private val cantProduct: TextView = itemView.findViewById(R.id.txtCantProducts)
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        fun bind(productList: ProductList) {
+            titulo.text = productList.tituloNota
+            cantProduct.text = productList.cantNota
+        }
+
+        override fun onClick(view: View) {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                val productList = listProductList[position]
+                val toastMessage = "Título: ${productList.id}, Cantidad: ${productList.cantNota}"
+                Toast.makeText(view.context, toastMessage, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
-

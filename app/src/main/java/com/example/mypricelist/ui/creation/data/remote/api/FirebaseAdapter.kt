@@ -39,10 +39,11 @@ class FirebaseAdapter {
             listadoList.clear()
 
             for (document in snapshot.documents) {
+
                 val productosDoc = document.get("productos") as? ArrayList<*>
                 val productos = transformData(productosDoc)
                 val cantidadProductos = productos.sumOf { it.cantidad }
-                val nuevaList: ProductList = ProductList("" + document.getString("id"),""+document.getString("name"),cantidadProductos.toString())
+                val nuevaList: ProductList = ProductList("" + document.id,""+document.getString("name"),cantidadProductos.toString())
                 listadoList.add(nuevaList)
             }
             adapter?.notifyDataSetChanged()
