@@ -1,6 +1,7 @@
 package com.example.mypricelist.data.remote.api
 import com.example.mypricelist.AdaptadorProductList
 import com.example.mypricelist.ProductList
+import com.example.mypricelist.models.ProductModel
 import com.google.firebase.database.*
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -35,7 +36,9 @@ class FirebaseAdapter {
             println("+++++++++++++++++++++++++++++")
             println("Current data: ${snapshot.documents}")
             for (document in snapshot.documents) {
-                val nuevaList: ProductList = ProductList("" + document.getString("id"),""+document.getString("name"),"10")
+                println("document " + document.get("productos"))
+                val productos : ArrayList<ProductModel> = document.get("productos") as ArrayList<ProductModel>
+                val nuevaList: ProductList = ProductList("" + document.getString("id"),""+document.getString("name"),productos.size.toString())
                 listadoList.add(nuevaList)
             }
             adapter?.notifyDataSetChanged()
