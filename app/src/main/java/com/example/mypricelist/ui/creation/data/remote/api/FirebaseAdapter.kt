@@ -50,7 +50,7 @@ class FirebaseAdapter {
     }
     }
 
-    fun listeningProducts(products: ArrayList<Product>, adapter: ProductAdapter?) {
+    fun listeningProducts(products: ArrayList<ProductModel>, adapter: ProductAdapter?) {
         val colecctionRef = db.collection("productos")
         colecctionRef.addSnapshotListener { snapshot, e ->
             if (e != null) {
@@ -61,8 +61,7 @@ class FirebaseAdapter {
                 println("+++++++++++++++++++++++++++++")
                 println("Current data: ${snapshot.documents}")
                 for (document in snapshot.documents) {
-                    println("document " + document.get("productos"))
-                    val newProduct: Product = Product("" + document.getString("id"),""+document.getString("nombre"),""+document.getString("tipo"),""+document.getString("unidad"))
+                    val newProduct: ProductModel = ProductModel(""+document.getString("nombre"),""+document.getString("unidad"),1, "" + document.getString("tipo"), 2131230851, "" + document.getString("id"))
                     products.add(newProduct)
                 }
                 adapter?.notifyDataSetChanged()
