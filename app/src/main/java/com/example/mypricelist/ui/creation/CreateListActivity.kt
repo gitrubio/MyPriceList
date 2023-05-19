@@ -50,8 +50,10 @@ class CreateListActivity : AppCompatActivity() {
 
         // evento para el botón de retroceso
         toolbar.setNavigationOnClickListener { onBackPressed() }
+
+        //llenando el select con los productos desde firebase
         val spinner = findViewById<Spinner>(R.id.spiProducts)
-        dataProducts = firebaseAdapter.getProducts(spinner,this,::setDate)
+        firebaseAdapter.getProducts(spinner,this,::setDate)
 
 
         val recyclerView: RecyclerView = findViewById(R.id.ReView)

@@ -93,7 +93,7 @@ class FirebaseAdapter {
         }
     }
 
-    fun getProducts( spinner :  Spinner, context : Context, call : (ArrayList<ProductModel>) -> Unit)  : ArrayList<ProductModel> {
+    fun getProducts( spinner :  Spinner, context : Context, call : (ArrayList<ProductModel>) -> Unit) {
         val productos = ArrayList<ProductModel>()
         val colecctionRef = db.collection("productos")
          colecctionRef.get().addOnSuccessListener { result ->
@@ -110,13 +110,11 @@ class FirebaseAdapter {
              val data = productos.map { it.nombre }
              val adapter = ArrayAdapter(context, R.layout.simple_spinner_dropdown_item, data)
              spinner.adapter = adapter
-             println("viendo los productos" + productos)
         }.addOnFailureListener { exception ->
              // Maneja la falla en caso de error
              // Por ejemplo, muestra un mensaje de error
              println( "Error al obtener documentos: "+ exception)
          }
 
-        return productos
     }
 }
