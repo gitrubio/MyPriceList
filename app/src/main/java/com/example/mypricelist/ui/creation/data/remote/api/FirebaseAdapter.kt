@@ -7,27 +7,26 @@ import com.example.mypricelist.models.ProductModel
 import com.google.firebase.database.*
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.firebase.firestore.ListenerRegistration
 
 class FirebaseAdapter {
 
     private val database = FirebaseDatabase.getInstance()
     val db = FirebaseFirestore.getInstance()
-    val coleccion: CollectionReference = db.collection("ListMain")
+//    val coleccion: CollectionReference = db.collection("ListMain")
 
-    fun getLists(listadoList: ArrayList<ProductList>, adapter: AdaptadorProductList?) {
-        coleccion.get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    for (document in task.result) {
-                        val nuevaList: ProductList = ProductList("" + document.getString("id"),""+document.getString("name"),"10")
-                        listadoList.add(nuevaList)
-                    }
-                    adapter?.notifyDataSetChanged()
-                }
-            }
-    }
+//    fun getLists(listadoList: ArrayList<ProductList>, adapter: AdaptadorProductList?) {
+//        coleccion.get()
+//            .addOnCompleteListener { task ->
+//                if (task.isSuccessful) {
+//                    for (document in task.result) {
+//                        val nuevaList: ProductList = ProductList("" + document.getString("id"),""+document.getString("name"),"10")
+//                        listadoList.add(nuevaList)
+//                    }
+//                    adapter?.notifyDataSetChanged()
+//                }
+//            }
+//    }
 
     fun listeningList(listadoList: ArrayList<ProductList>, adapter: AdaptadorProductList?) {
     val colecctionRef = db.collection("ListMain")
@@ -43,7 +42,7 @@ class FirebaseAdapter {
                 val productosDoc = document.get("productos") as? ArrayList<*>
                 val productos = transformData(productosDoc)
                 val cantidadProductos = productos.sumOf { it.cantidad }
-                val nuevaList: ProductList = ProductList("" + document.id,""+document.getString("name"),cantidadProductos.toString())
+                val nuevaList: ProductList = ProductList("" + document.id,""+document.getString("name"),cantidadProductos.toString(), productos)
                 listadoList.add(nuevaList)
             }
             adapter?.notifyDataSetChanged()
@@ -52,6 +51,40 @@ class FirebaseAdapter {
         }
     }
     }
+    fun listeningProductsByList(
+        products: ArrayList<ProductModel>,
+        listId: String,
+        adapter: ProductAdapter?
+    ): ListenerRegistration? {
+
+        val db = FirebaseFirestore.getInstance()
+        val documentRef = db.collection("ListMain").document(listId)
+
+        val listener = documentRef.addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                // Manejar el error
+                return@addSnapshotListener
+            }
+
+            if (snapshot != null && snapshot.exists()) {
+                products.clear()
+                val data = snapshot.data
+                if (data != null) {
+                    val productosDoc = data["productos"] as? ArrayList<*>
+                    val productos = transformData(productosDoc)
+                    products.clear()
+                    products.addAll(productos)
+                }
+                adapter?.notifyDataSetChanged()
+            } else {
+                products.clear()
+            }
+        }
+
+        return listener
+    }
+
+
 
     fun transformData( productos : ArrayList<*>?) : ArrayList<ProductModel>  {
         val productList =  ArrayList<ProductModel>()
@@ -89,4 +122,6 @@ class FirebaseAdapter {
             }
         }
     }
+
+
 }

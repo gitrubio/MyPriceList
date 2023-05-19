@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
             startActivity(createListView, options.toBundle())
         }
 
-        adapter = AdaptadorProductList(listadoList)
+        adapter = AdaptadorProductList(listadoList, requireContext().applicationContext)
         recycler = root.findViewById(R.id.recyclerListas)
 
         val layourManager:RecyclerView.LayoutManager = LinearLayoutManager(requireContext().applicationContext)

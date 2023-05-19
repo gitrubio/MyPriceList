@@ -1,14 +1,16 @@
 package com.example.mypricelist
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mypricelist.databinding.FragmentHomeBinding
+import com.example.mypricelist.ui.creation.ShowProductsByList
 
-class AdaptadorProductList(private val listProductList: ArrayList<ProductList>) : RecyclerView.Adapter<AdaptadorProductList.MyViewHolder>() {
+class AdaptadorProductList(private val listProductList: ArrayList<ProductList>, private val context: Context) : RecyclerView.Adapter<AdaptadorProductList.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
@@ -41,8 +43,12 @@ class AdaptadorProductList(private val listProductList: ArrayList<ProductList>) 
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 val productList = listProductList[position]
-                val toastMessage = "Título: ${productList.id}, Cantidad: ${productList.cantNota}"
-                Toast.makeText(view.context, toastMessage, Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(context, ShowProductsByList::class.java)
+
+                intent.putExtra("id", productList.id)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent)
             }
         }
     }
