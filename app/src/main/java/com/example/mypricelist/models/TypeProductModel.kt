@@ -1,6 +1,6 @@
 package com.example.mypricelist.models
 
- class TypeProductModel(val nombre: String) {
+ class TypeProductModel(val nombre: String, val icon : Int) {
 
      init{
 

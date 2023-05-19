@@ -20,20 +20,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mypricelist.AdaptadorProductList
 import com.example.mypricelist.Adapters.ProductAdapter
 import com.example.mypricelist.models.ProductModel
+import com.example.mypricelist.ui.creation.data.remote.api.FirebaseAdapter
 import com.example.mypricelist.utils.SinEspaciadoItemDecoration
 
 class CreateListActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val coleccion: CollectionReference = db.collection("ListMain")
-    private val dataProducts = listOf<ProductModel>(
-        ProductModel("Cerveza", "ML", 1, "Bebida",R.drawable.glass_mug_variant),
-        ProductModel("Papitas", "Gramos", 1, "Snack", R.drawable.chips),
-        ProductModel("Coca Cola", "ML", 1, "Bebida",R.drawable.bottle_soda_classic),
-        ProductModel("Chocolate", "Gramos", 1, "Snack",R.drawable.candy),
-        ProductModel("Wisky", "ML", 1, "Bebida",R.drawable.liquor))
-
+    private var dataProducts = ArrayList<ProductModel>()
+    private val firebaseAdapter = FirebaseAdapter()
     private val listProducts = (mutableListOf<ProductModel>())
     private var ListAdapter: ProductAdapter?=null
+    override fun onStart() {
+        super.onStart()
+        leerListadoProductos()
+    }
+    fun leerListadoProductos(){
+
+    }
+    fun setDate(data : ArrayList<ProductModel>){
+        dataProducts = data
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_list)
@@ -45,11 +51,9 @@ class CreateListActivity : AppCompatActivity() {
         // evento para el botón de retroceso
         toolbar.setNavigationOnClickListener { onBackPressed() }
 
-        // se llenar el select de datos
+        //llenando el select con los productos desde firebase
         val spinner = findViewById<Spinner>(R.id.spiProducts)
-        val data = dataProducts.map { it.nombre }
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, data)
-        spinner.adapter = adapter
+        firebaseAdapter.getProducts(spinner,this,::setDate)
 
 
         val recyclerView: RecyclerView = findViewById(R.id.ReView)
@@ -80,19 +84,26 @@ class CreateListActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
     fun addProductList(view: View){
-        val controlSelectProduct = findViewById<Spinner>(R.id.spiProducts)
-        val product = dataProducts[controlSelectProduct.selectedItemPosition]
-        if (!listProducts.any { it.nombre == product.nombre }) {
-            listProducts.add(product)
+        println(dataProducts)
+        println(dataProducts.size === 0)
+        if(dataProducts.size === 0){
+            Toast.makeText(this, "No hay productos seleccionados", Toast.LENGTH_SHORT).show()
         }else{
-            for (item in listProducts) {
-                if (item.nombre == product.nombre ) {
-                    item.cantidad += 1
-                    break
+            val controlSelectProduct = findViewById<Spinner>(R.id.spiProducts)
+            val product = dataProducts[controlSelectProduct.selectedItemPosition]
+            if (!listProducts.any { it.nombre == product.nombre }) {
+                listProducts.add(product)
+            }else{
+                for (item in listProducts) {
+                    if (item.nombre == product.nombre ) {
+                        item.cantidad += 1
+                        break
+                    }
                 }
             }
+            ListAdapter?.notifyDataSetChanged()
         }
-        ListAdapter?.notifyDataSetChanged()
+
     }
     fun saveList(view : View){
         var controListName = findViewById<EditText>(R.id.edtListName)

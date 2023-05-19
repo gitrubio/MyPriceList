@@ -1,4 +1,8 @@
 package com.example.mypricelist.ui.creation.data.remote.api
+import android.R
+import android.content.Context
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import com.example.mypricelist.AdaptadorProductList
 import com.example.mypricelist.Adapters.ProductAdapter
 import com.example.mypricelist.Product
@@ -7,7 +11,8 @@ import com.example.mypricelist.models.ProductModel
 import com.google.firebase.database.*
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
+import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.ObjectMapper
 
 class FirebaseAdapter {
 
@@ -38,11 +43,10 @@ class FirebaseAdapter {
             listadoList.clear()
 
             for (document in snapshot.documents) {
-
                 val productosDoc = document.get("productos") as? ArrayList<*>
                 val productos = transformData(productosDoc)
                 val cantidadProductos = productos.sumOf { it.cantidad }
-                val nuevaList: ProductList = ProductList("" + document.id,""+document.getString("name"),cantidadProductos.toString(), productos)
+                val nuevaList: ProductList = ProductList("" + document.id,""+document.getString("name"),cantidadProductos.toString())
                 listadoList.add(nuevaList)
             }
             adapter?.notifyDataSetChanged()
@@ -116,12 +120,35 @@ class FirebaseAdapter {
                     val newProduct: ProductModel = ProductModel(""+document.getString("nombre"),""+document.getString("unidad"),1, "" + document.getString("tipo"), 2131230851, "" + document.getString("id"))
                     products.add(newProduct)
                 }
-                adapter?.notifyDataSetChanged()
+                if( adapter !== null ) adapter?.notifyDataSetChanged()
             } else {
                 products.clear()
             }
         }
     }
 
+    fun getProducts( spinner :  Spinner, context : Context, call : (ArrayList<ProductModel>) -> Unit) {
+        val productos = ArrayList<ProductModel>()
+        val colecctionRef = db.collection("productos")
+         colecctionRef.get().addOnSuccessListener { result ->
+                println("que es result"+result)
+            for (document in result) {
+                productos.add(ProductModel(
+                    cantidad =  document["cantidad"].toString().toInt(),
+                    nombre = document["nombre"].toString(),
+                    unidad = document["unidad"].toString(),
+                    tipo = document["tipo"].toString(),
+                    imgID = document["imgID"].toString().toInt()
+                ))
+            }
+             val data = productos.map { it.nombre }
+             val adapter = ArrayAdapter(context, R.layout.simple_spinner_dropdown_item, data)
+             spinner.adapter = adapter
+        }.addOnFailureListener { exception ->
+             // Maneja la falla en caso de error
+             // Por ejemplo, muestra un mensaje de error
+             println( "Error al obtener documentos: "+ exception)
+         }
 
+    }
 }

@@ -1,7 +1,7 @@
 package com.example.mypricelist
 import com.example.mypricelist.models.ProductModel
 
-class ProductList(private var _id:String, private var _tituloNota: String = "", private var _cantProducts: String = "", private var _products:  ArrayList<ProductModel> ) {
+class ProductList(private var _id:String, private var _tituloNota: String = "", private var _cantProducts: String = "", private var _total : String = "", private var _products:  ArrayList<ProductModel> ) {
 
     var id: String
         get() = _id
@@ -18,6 +18,12 @@ class ProductList(private var _id:String, private var _tituloNota: String = "", 
         get() = _cantProducts
         set(value) {
             _cantProducts = value
+        }
+
+    var totalNota: String
+        get() = _total
+        set(value) {
+            _total = value
         }
 
     var products: ArrayList<ProductModel>

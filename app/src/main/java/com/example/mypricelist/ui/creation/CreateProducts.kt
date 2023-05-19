@@ -25,15 +25,15 @@ class CreateProducts : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val coleccion: CollectionReference = db.collection("productos")
     private val listTypeProduct = listOf<TypeProductModel>(
-        TypeProductModel("Bebidas"),
-        TypeProductModel("Snaks"),
-        TypeProductModel("Licor"),
-        TypeProductModel("Dermocosmeticos"),
-        TypeProductModel("Cuidado personal"),
-        TypeProductModel("Aseo"),
-        TypeProductModel("Granos"),
-        TypeProductModel("Aceites"),
-        TypeProductModel("Enlatados"),
+        TypeProductModel("Bebidas",R.drawable.bottle_soda_classic),
+        TypeProductModel("Snaks Dulce",R.drawable.candy),
+        TypeProductModel("Snaks Salado",R.drawable.chips),
+        TypeProductModel("Licor",R.drawable.liquor),
+        TypeProductModel("Dermocosmeticos",R.drawable.face),
+        TypeProductModel("Cuidado personal",R.drawable.healt),
+        TypeProductModel("Aseo",R.drawable.clean),
+        TypeProductModel("Granos",R.drawable.grain),
+        TypeProductModel("Aceites",R.drawable.oil),
     )
     private val listUnidades = listOf<UnitProductModel>(
         UnitProductModel("Gramos", "gr"),
@@ -90,7 +90,7 @@ class CreateProducts : AppCompatActivity() {
             val controlSelectUnits = findViewById<Spinner>(R.id.spiUnits)
             val selectType = listTypeProduct[controlSelectProduct.selectedItemPosition]
             val selectUnit = listUnidades[controlSelectUnits.selectedItemPosition]
-            val producto = ProductModel(productName.text.toString(),selectUnit.name, 1,selectType.nombre, R.drawable.candy)
+            val producto = ProductModel(productName.text.toString(),selectUnit.name, 1,selectType.nombre,selectType.icon)
             coleccion.add(producto)
             finishAfterTransition()
         }

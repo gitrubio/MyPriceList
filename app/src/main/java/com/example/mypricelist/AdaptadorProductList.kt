@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mypricelist.ui.creation.ShowProductsByList
 
@@ -22,22 +21,18 @@ class AdaptadorProductList(private val listProductList: ArrayList<ProductList>, 
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val productList: ProductList = listProductList[position]
-        holder.bind(productList)
+        val producListActual: ProductList = listProductList.get(position)
+        holder.titulo.setText(producListActual.tituloNota)
+        holder.cantProduct.setText(producListActual.cantNota)
+        holder.total.setText(producListActual.totalNota)
     }
 
-    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        private val titulo: TextView = itemView.findViewById(R.id.txtTitulo)
-        private val cantProduct: TextView = itemView.findViewById(R.id.txtCantProducts)
-
-        init {
-            itemView.setOnClickListener(this)
-        }
-
-        fun bind(productList: ProductList) {
-            titulo.text = productList.tituloNota
-            cantProduct.text = productList.cantNota
-        }
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val titulo: TextView = itemView.findViewById(R.id.txtTitulo)
+        val cantProduct: TextView = itemView.findViewById(R.id.txtCantProducts)
+        val total : TextView = itemView.findViewById(R.id.txtTotal)
+    }
+}
 
         override fun onClick(view: View) {
             val position = adapterPosition
