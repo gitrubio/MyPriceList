@@ -8,8 +8,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerListProducts"
-        android:layout_width="match_parent"
-        android:layout_height="530dp"
+        android:layout_width="406dp"
+        android:layout_height="694dp"
         android:layout_marginTop="16dp"
         android:paddingHorizontal="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,8 +21,8 @@
         android:id="@+id/btnAddProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="440dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginTop="576dp"
+        android:layout_marginEnd="32dp"
         android:clickable="true"
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintEnd_toEndOf="parent"

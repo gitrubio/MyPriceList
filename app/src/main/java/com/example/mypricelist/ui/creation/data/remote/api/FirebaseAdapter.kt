@@ -42,7 +42,7 @@ class FirebaseAdapter {
                 val productosDoc = document.get("productos") as? ArrayList<*>
                 val productos = transformData(productosDoc)
                 val cantidadProductos = productos.sumOf { it.cantidad }
-                val nuevaList: ProductList = ProductList("" + document.getString("id"),""+document.getString("name"),cantidadProductos.toString())
+                val nuevaList: ProductList = ProductList("" + document.getString("id"),""+document.getString("name"),cantidadProductos.toString(),document.get("total").toString())
                 listadoList.add(nuevaList)
             }
             adapter?.notifyDataSetChanged()
@@ -82,10 +82,15 @@ class FirebaseAdapter {
                     val newProduct: ProductModel = ProductModel(""+document.getString("nombre"),""+document.getString("unidad"),1, "" + document.getString("tipo"), 2131230851, "" + document.getString("id"))
                     products.add(newProduct)
                 }
-                adapter?.notifyDataSetChanged()
+                if( adapter !== null ) adapter?.notifyDataSetChanged()
             } else {
                 products.clear()
             }
         }
+    }
+
+    fun getProducts() {
+        val colecctionRef = db.collection("productos")
+        val dataDocument = colecctionRef.get()
     }
 }

@@ -22,11 +22,13 @@ class AdaptadorProductList(private val listProductList: ArrayList<ProductList>) 
         val producListActual: ProductList = listProductList.get(position)
         holder.titulo.setText(producListActual.tituloNota)
         holder.cantProduct.setText(producListActual.cantNota)
+        holder.total.setText(producListActual.totalNota)
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val titulo: TextView = itemView.findViewById(R.id.txtTitulo)
         val cantProduct: TextView = itemView.findViewById(R.id.txtCantProducts)
+        val total : TextView = itemView.findViewById(R.id.txtTotal)
     }
 }
 

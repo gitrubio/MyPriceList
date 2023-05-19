@@ -1,6 +1,6 @@
 package com.example.mypricelist
 
-class ProductList(private var _id:String, private var _tituloNota: String = "", private var _cantProducts: String = "") {
+class ProductList(private var _id:String, private var _tituloNota: String = "", private var _cantProducts: String = "", private var _total : String = "") {
 
     var id: String
         get() = _id
@@ -17,6 +17,12 @@ class ProductList(private var _id:String, private var _tituloNota: String = "", 
         get() = _cantProducts
         set(value) {
             _cantProducts = value
+        }
+
+    var totalNota: String
+        get() = _total
+        set(value) {
+            _total = value
         }
 
 }
