@@ -5,14 +5,11 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import com.example.mypricelist.AdaptadorProductList
 import com.example.mypricelist.Adapters.ProductAdapter
-import com.example.mypricelist.Product
 import com.example.mypricelist.ProductList
 import com.example.mypricelist.models.ProductModel
 import com.google.firebase.database.*
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.firebase.firestore.ListenerRegistration
 
 class FirebaseAdapter {
 
@@ -46,7 +43,7 @@ class FirebaseAdapter {
                 val productosDoc = document.get("productos") as? ArrayList<*>
                 val productos = transformData(productosDoc)
                 val cantidadProductos = productos.sumOf { it.cantidad }
-                val nuevaList: ProductList = ProductList("" + document.id,""+document.getString("name"),cantidadProductos.toString())
+                val nuevaList: ProductList = ProductList("" + document.id,""+document.getString("name"),cantidadProductos.toString(),document.get("total").toString(), productos)
                 listadoList.add(nuevaList)
             }
             adapter?.notifyDataSetChanged()
@@ -78,6 +75,8 @@ class FirebaseAdapter {
                     val productos = transformData(productosDoc)
                     products.clear()
                     products.addAll(productos)
+
+                    productos.map { ele-> print("----------------------" + ele) }
                 }
                 adapter?.notifyDataSetChanged()
             } else {
