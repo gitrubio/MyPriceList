@@ -22,23 +22,22 @@
         app:srcCompat="@drawable/glass_mug_variant"
         />
 
+
     <TextView
         android:id="@+id/txtNombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
+        android:layout_marginStart="20dp"
         android:text="nombre"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageProduct"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.428" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtCantidad"
-        android:layout_width="121dp"
+        android:layout_width="118dp"
         android:layout_height="41dp"
         android:text="txtCantidad"
         android:textAlignment="center"

@@ -110,7 +110,8 @@ class CreateListActivity : AppCompatActivity() {
 
         var correctly = controlErrors(controListName)
         if(correctly){
-            val producto = ListModel(controListName.text.toString(),120.0, listProducts)
+            val total = listProducts.sumOf { it.precio * it.cantidad }
+            val producto = ListModel(controListName.text.toString(),total.toDouble(), listProducts)
             coleccion.add(producto)
             finishAfterTransition()
         }

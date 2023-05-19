@@ -46,7 +46,7 @@ class DashboardFragment : Fragment() {
             startActivity(createListView, options.toBundle())
         }
 
-        adapter = ProductAdapter(products)
+        adapter = ProductAdapter(products,true)
         recycler = root.findViewById(R.id.recyclerListProducts)
 
         val layourManager:RecyclerView.LayoutManager = LinearLayoutManager(requireContext().applicationContext)

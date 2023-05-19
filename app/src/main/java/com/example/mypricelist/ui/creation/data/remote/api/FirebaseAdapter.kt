@@ -99,7 +99,8 @@ class FirebaseAdapter {
                         nombre = producto["nombre"].toString(),
                         unidad = producto["unidad"].toString(),
                         tipo = producto["tipo"].toString(),
-                        imgID = producto["imgID"].toString().toInt()
+                        imgID = producto["imgID"].toString().toInt(),
+                        precio = producto["precio"].toString().toInt()
                     ))
                 }
             }
@@ -116,7 +117,7 @@ class FirebaseAdapter {
                 products.clear()
 
                 for (document in snapshot.documents) {
-                    val newProduct: ProductModel = ProductModel(""+document.getString("nombre"),""+document.getString("unidad"),1, "" + document.getString("tipo"), 2131230851, "" + document.getString("id"))
+                    val newProduct: ProductModel = ProductModel(""+document.getString("nombre"),""+document.getString("unidad"),1, "" + document.getString("tipo"), document.get("imgID").toString().toInt(), document.get("precio").toString().toInt(),"" + document.getString("id"))
                     products.add(newProduct)
                 }
                 if( adapter !== null ) adapter?.notifyDataSetChanged()
@@ -130,19 +131,21 @@ class FirebaseAdapter {
         val productos = ArrayList<ProductModel>()
         val colecctionRef = db.collection("productos")
          colecctionRef.get().addOnSuccessListener { result ->
-                println("que es result"+result)
+
             for (document in result) {
                 productos.add(ProductModel(
                     cantidad =  document["cantidad"].toString().toInt(),
                     nombre = document["nombre"].toString(),
                     unidad = document["unidad"].toString(),
                     tipo = document["tipo"].toString(),
-                    imgID = document["imgID"].toString().toInt()
+                    imgID = document["imgID"].toString().toInt(),
+                    precio = document["precio"].toString().toInt()
                 ))
             }
              val data = productos.map { it.nombre }
              val adapter = ArrayAdapter(context, R.layout.simple_spinner_dropdown_item, data)
              spinner.adapter = adapter
+             call(productos)
         }.addOnFailureListener { exception ->
              // Maneja la falla en caso de error
              // Por ejemplo, muestra un mensaje de error

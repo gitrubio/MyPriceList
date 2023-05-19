@@ -84,26 +84,30 @@ class CreateProducts : AppCompatActivity() {
     }
     fun saveList(view : View){
         var productName = findViewById<EditText>(R.id.edtListName)
-        var correctly = controlErrors(productName)
+        var productPrice = findViewById<EditText>(R.id.textPrecio)
+        var correctly = controlErrors(productName,productPrice)
         if(correctly){
             val controlSelectProduct = findViewById<Spinner>(R.id.spiProducts)
             val controlSelectUnits = findViewById<Spinner>(R.id.spiUnits)
             val selectType = listTypeProduct[controlSelectProduct.selectedItemPosition]
             val selectUnit = listUnidades[controlSelectUnits.selectedItemPosition]
-            val producto = ProductModel(productName.text.toString(),selectUnit.name, 1,selectType.nombre,selectType.icon)
+            val producto = ProductModel(productName.text.toString(),selectUnit.name, 1,selectType.nombre,selectType.icon,productPrice.text.toString().toInt())
             coleccion.add(producto)
             finishAfterTransition()
         }
     }
 
-    private fun controlErrors(listName : EditText, ): Boolean {
+    private fun controlErrors(listName : EditText, price : EditText): Boolean {
         var correctlyData = true
         var nameList = listName.text.toString()
         if(nameList.isEmpty()){
             listName.error = "Por favor Ingrese un nombre para el producto"
             correctlyData = false
         }
-
+        if(price.text.isEmpty()){
+            price.error = "Por favor Ingrese un precio para el producto"
+            correctlyData = false
+        }
         return correctlyData
     }
 }

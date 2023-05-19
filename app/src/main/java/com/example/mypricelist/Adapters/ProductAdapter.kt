@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mypricelist.R
 import com.example.mypricelist.models.ProductModel
 
-class ProductAdapter(val listaObjetos: List<ProductModel>) : RecyclerView.Adapter<ProductAdapter.ObjetoViewHolder>() {
+class ProductAdapter(val listaObjetos: List<ProductModel>, val showPrice : Boolean? = false) : RecyclerView.Adapter<ProductAdapter.ObjetoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ObjetoViewHolder {
         // Inflar el diseño de la vista del elemento de lista
@@ -25,7 +25,12 @@ class ProductAdapter(val listaObjetos: List<ProductModel>) : RecyclerView.Adapte
         if(objeto.imgID != 0){
             holder.imgProduct.setImageResource(objeto.imgID)
         }
-        holder.txtCantidad.text = objeto.cantidad.toString()
+        if(showPrice === true){
+            holder.txtCantidad.text =  objeto.precio.toString()
+        }else{
+            holder.txtCantidad.text =  objeto.cantidad.toString()
+        }
+
     }
 
     override fun getItemCount(): Int {
