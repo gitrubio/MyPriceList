@@ -1,4 +1,8 @@
 package com.example.mypricelist.ui.creation.data.remote.api
+import android.R
+import android.content.Context
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import com.example.mypricelist.AdaptadorProductList
 import com.example.mypricelist.Adapters.ProductAdapter
 import com.example.mypricelist.Product
@@ -89,8 +93,30 @@ class FirebaseAdapter {
         }
     }
 
-    fun getProducts() {
+    fun getProducts( spinner :  Spinner, context : Context, call : (ArrayList<ProductModel>) -> Unit)  : ArrayList<ProductModel> {
+        val productos = ArrayList<ProductModel>()
         val colecctionRef = db.collection("productos")
-        val dataDocument = colecctionRef.get()
+         colecctionRef.get().addOnSuccessListener { result ->
+                println("que es result"+result)
+            for (document in result) {
+                productos.add(ProductModel(
+                    cantidad =  document["cantidad"].toString().toInt(),
+                    nombre = document["nombre"].toString(),
+                    unidad = document["unidad"].toString(),
+                    tipo = document["tipo"].toString(),
+                    imgID = document["imgID"].toString().toInt()
+                ))
+            }
+             val data = productos.map { it.nombre }
+             val adapter = ArrayAdapter(context, R.layout.simple_spinner_dropdown_item, data)
+             spinner.adapter = adapter
+             println("viendo los productos" + productos)
+        }.addOnFailureListener { exception ->
+             // Maneja la falla en caso de error
+             // Por ejemplo, muestra un mensaje de error
+             println( "Error al obtener documentos: "+ exception)
+         }
+
+        return productos
     }
 }
