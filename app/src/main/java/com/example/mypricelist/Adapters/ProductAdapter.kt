@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mypricelist.R
 import com.example.mypricelist.models.ProductModel
+import com.example.mypricelist.utils.resourByCategori
+import com.example.mypricelist.utils.utils
 
 class ProductAdapter(val listaObjetos: List<ProductModel>, val showPrice : Boolean? = false) : RecyclerView.Adapter<ProductAdapter.ObjetoViewHolder>() {
 
@@ -23,7 +25,8 @@ class ProductAdapter(val listaObjetos: List<ProductModel>, val showPrice : Boole
         val objeto = listaObjetos[position]
         holder.txtNombre.text = objeto.nombre
         if(objeto.imgID != 0){
-            holder.imgProduct.setImageResource(objeto.imgID)
+
+             holder.imgProduct.setImageResource(resourByCategori(objeto.tipo))
         }
         if(showPrice === true){
             holder.txtCantidad.text =  objeto.precio.toString()
